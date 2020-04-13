@@ -23,152 +23,29 @@
   </head>
 
   <body>
-    <header class="jumbotron border-bottom border-dark">
+    <header class="jumbotron border-bottom p-5 border-dark text-white" style="background-color: darkcyan;">
       <h1 class="display-3 text-center">Work Day Scheduler</h1>
       <p class="lead text-center">A simple calendar app for scheduling your work day</p>
       <p id="currentDay" class="lead"></p>
+      <p id='currentTime' class='lead'></p>
+      <form>
+        <div class="row w-25 mx-auto">
+          <div class="col">
+            <input type="text" class="form-control" id='hours-to-work' placeholder="Hours To Work">
+          </div>
+          <div class="col">
+            <select class="custom-select" id='start-time'>
+              <option selected>Start Time</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-light" type='button' id="update-schedule">Update Schedule</button>
+      </form>
     </header>
-    <div class="container p-0">
-            <div class="row p-10 m-4 form-group">
-              <div class="col-1  border-left-0 border-secondary rounded-left p-2 shadow">
-                9am
-              </div>
-              <div class="col-10 badge-secondary p-0 m-0 border no-gutters ">
-              <textarea class=" form-control border-0 p-0 m-0 badge-secondary d-inline" id='nine-am'>
-                
-              </textarea>
-            </div>
-              <div class="col-1 border-right-0 border-secondary badge-info rounded-right p-2 shadow">
-                <svg class="bi bi-calendar-fill" id='save-task' width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 2a2 2 0 012-2h12a2 2 0 012 2H0z"/>
-                    <path fill-rule="evenodd" d="M0 3h16v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3zm6.5 4a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"/>
-                  </svg>
-              </div>
-            </div>
-            <div class="row p-10 m-4 form-group">
-              <div class="col-1  border-left-0 border-secondary rounded-left p-2 shadow">
-                10am
-              </div>
-              <div class="col-10 badge-secondary p-0 m-0 border no-gutters ">
-              <textarea class=" form-control border-0 p-0 m-0 badge-secondary d-inline" id='ten-am'>
-                
-              </textarea>
-            </div>
-              <div class="col-1 border-right-0 border-secondary badge-info rounded-right p-2 shadow">
-                <svg class="bi bi-calendar-fill" id='save-task' width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 2a2 2 0 012-2h12a2 2 0 012 2H0z"/>
-                    <path fill-rule="evenodd" d="M0 3h16v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3zm6.5 4a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"/>
-                  </svg>
-              </div>
-            </div>
-            <div class="row p-10 m-4 form-group">
-              <div class="col-1  border-left-0 border-secondary rounded-left p-2 shadow">
-                11am
-              </div>
-              <div class="col-10 badge-secondary p-0 m-0 border no-gutters ">
-              <textarea class=" form-control border-0 p-0 m-0 badge-secondary d-inline" id='eleven-am'>
-                
-              </textarea>
-            </div>
-              <div class="col-1 border-right-0 border-secondary badge-info rounded-right p-2 shadow">
-                <svg class="bi bi-calendar-fill" id='save-task' width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 2a2 2 0 012-2h12a2 2 0 012 2H0z"/>
-                    <path fill-rule="evenodd" d="M0 3h16v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3zm6.5 4a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"/>
-                  </svg>
-              </div>
-            </div>
-            <div class="row p-10 m-4 form-group">
-              <div class="col-1  border-left-0 border-secondary rounded-left p-2 shadow">
-                12pm
-              </div>
-              <div class="col-10 badge-secondary p-0 m-0 border no-gutters ">
-              <textarea class=" form-control border-0 p-0 m-0 badge-secondary d-inline" id='twelve-pm'>      
-              </textarea>
-            </div>
-              <div class="col-1 border-right-0 border-secondary badge-info rounded-right p-2 shadow">
-                <svg class="bi bi-calendar-fill" id='save-task' width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 2a2 2 0 012-2h12a2 2 0 012 2H0z"/>
-                    <path fill-rule="evenodd" d="M0 3h16v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3zm6.5 4a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"/>
-                  </svg>
-              </div>
-            </div>
-            <div class="row p-10 m-4 form-group">
-              <div class="col-1  border-left-0 border-secondary rounded-left p-2 shadow">
-                1pm
-              </div>
-              <div class="col-10 badge-secondary p-0 m-0 border no-gutters ">
-              <textarea class=" form-control border-0 p-0 m-0 badge-secondary d-inline" id='one-pm'>      
-              </textarea>
-            </div>
-              <div class="col-1 border-right-0 border-secondary badge-info rounded-right p-2 shadow">
-                <svg class="bi bi-calendar-fill" id='save-task' width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 2a2 2 0 012-2h12a2 2 0 012 2H0z"/>
-                    <path fill-rule="evenodd" d="M0 3h16v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3zm6.5 4a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"/>
-                  </svg>
-              </div>
-            </div>
-            <div class="row p-10 m-4 form-group">
-              <div class="col-1  border-left-0 border-secondary rounded-left p-2 shadow">
-                2pm
-              </div>
-              <div class="col-10 badge-secondary p-0 m-0 border no-gutters ">
-              <textarea class=" form-control border-0 p-0 m-0 badge-secondary d-inline" id='two-pm'>      
-              </textarea>
-            </div>
-              <div class="col-1 border-right-0 border-secondary badge-info rounded-right p-2 shadow">
-                <svg class="bi bi-calendar-fill" id='save-task' width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 2a2 2 0 012-2h12a2 2 0 012 2H0z"/>
-                    <path fill-rule="evenodd" d="M0 3h16v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3zm6.5 4a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"/>
-                  </svg>
-              </div>
-            </div>
-            <div class="row p-10 m-4 form-group">
-              <div class="col-1  border-left-0 border-secondary rounded-left p-2 shadow">
-                3pm
-              </div>
-              <div class="col-10 badge-secondary p-0 m-0 border no-gutters ">
-              <textarea class=" form-control border-0 p-0 m-0 badge-secondary d-inline" id='three-pm'>      
-              </textarea>
-            </div>
-              <div class="col-1 border-right-0 border-secondary badge-info rounded-right p-2 shadow">
-                <svg class="bi bi-calendar-fill" id='save-task' width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 2a2 2 0 012-2h12a2 2 0 012 2H0z"/>
-                    <path fill-rule="evenodd" d="M0 3h16v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3zm6.5 4a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"/>
-                  </svg>
-              </div>
-            </div>
-            <div class="row p-10 m-4 form-group">
-              <div class="col-1  border-left-0 border-secondary rounded-left p-2 shadow">
-                4pm
-              </div>
-              <div class="col-10 badge-secondary p-0 m-0 border no-gutters ">
-              <textarea class=" form-control border-0 p-0 m-0 badge-secondary d-inline" id='four-pm'>      
-              </textarea>
-            </div>
-              <div class="col-1 border-right-0 border-secondary badge-info rounded-right p-2 shadow">
-                <svg class="bi bi-calendar-fill" id='save-task' width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 2a2 2 0 012-2h12a2 2 0 012 2H0z"/>
-                    <path fill-rule="evenodd" d="M0 3h16v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3zm6.5 4a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"/>
-                  </svg>
-              </div>
-            </div>
-            <div class="row p-10 m-4 form-group">
-              <div class="col-1  border-left-0 border-secondary rounded-left p-2 shadow">
-                5pm
-              </div>
-              <div class="col-10 badge-secondary p-0 m-0 border no-gutters ">
-              <textarea class=" form-control border-0 p-0 m-0 badge-secondary d-inline" id='five-pm'>      
-              </textarea>
-            </div>
-              <div class="col-1 border-right-0 border-secondary badge-info rounded-right p-2 shadow">
-                <svg class="bi bi-calendar-fill" id='save-task' width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 2a2 2 0 012-2h12a2 2 0 012 2H0z"/>
-                    <path fill-rule="evenodd" d="M0 3h16v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3zm6.5 4a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm-8 2a1 1 0 11-2 0 1 1 0 012 0zm2 1a1 1 0 100-2 1 1 0 000 2zm4-1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"/>
-                  </svg>
-              </div>
-            </div>
-    </div>
+    <div class="container p-0" id='schedule-container'>
+    </div> <!--End of container-->
 
+                
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/script.js"></script>
