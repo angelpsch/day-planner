@@ -100,6 +100,10 @@ setInterval(clockUpdate, 1000);
       }
     }
 
+
+
+
+
 //Display date and time
 return $('#currentTime').text(hour + ':' + min + ':' + secs);
   }
@@ -138,26 +142,30 @@ $('#update-schedule').click(function(event){
      } else if (selectedTime == 'Start Time') {
          alert('You must pick a start time');
      } else {   
-           
+       $('.container').empty();
         function createObject(obj){
-            
-            for(var i = 0; i < temp; i++){
+             
+            for(var i = 0; i < temp; i++){ 
                 var obj = {}; 
                 obj['time'] = times[selectedTime]; 
                 obj['task'] = []; 
                 console.log(obj);
                 schedule.push(obj); 
-                selectedTime++;
-               
-            }
+                if (selectedTime >= 23){
+                    times[selectedTime] = 0;
+                    continue; 
+                }
+                selectedTime++; 
         }
+    }
         createObject(); 
         console.log(schedule); 
-        
+       
         
     }
-    $('#schedule-container').empty();
+    
     createSchedule(); 
+
 }); 
 
 
@@ -172,7 +180,6 @@ function createSchedule(){
         var times = temp.time; 
         var tasks = temp.task;
         var row = $('<div class="row p-10 m-4" id="task-rows">');
-   
         row.attr('value', schedule[index]); 
         $('#schedule-container').append(row); 
         var timeCol = $('<div class="col-1  border-left-0 border-secondary rounded-left p-2 shadow">');
@@ -187,9 +194,22 @@ function createSchedule(){
         btnCol.append(saveBtn); 
         timeCol.text(times); 
         taskField.text(tasks); 
+        
+
+        var d = new Date();
+        var hour = d.getHours(); 
+        console.log(hour); 
+        console.log(row.val());
+        // if (row.val() == hour){
+        //     taskCol.attr('class', 'col-10 badge-danger p-0 pl-2 mx-auto border no-gutters'); 
+        //     taskField.attr('class', 'col-10 badge-danger p-0 pl-2 mx-auto border-0 no-gutters task-field'); 
+        //     return; 
+        // } 
+
         row.append(timeCol)
         row.append(taskCol); 
         row.append(btnCol);
+
             $(saveBtn).click(function(event){
                 event.preventDefault(); 
                 tasks.push($('.task-field').val());
@@ -198,18 +218,24 @@ function createSchedule(){
                 taskHolder = tasks; 
                 renderTasks();
                 })
-    renderTasks(tasks);
 });
 
     console.log(taskHolder);
 }
 
-function renderTasks(array){
-    $(array).each(function(index){
-        var p = $('<p class="text-center m-4">')
-        var temp = array[index];
-        p.text(temp);
-        $('#task-col').append(p); 
+function renderTasks(schedule){
+    var temp = [];
+    $(schedule).each(function(index){
+    
+        temp.push(schedule[index]);
+    }) 
+    $(temp).each(function(i){
+        var tempT = temp[i];
+        console.log(temp[i]);
+        var p = $('<p class="text-white badge-secondary p-0 pl-2 pt-4 mx-auto border-0 no-gutters">');
+        p.text(tempT);
+        $('#task-col').append(p);  
+
     })
 
 }
@@ -217,10 +243,10 @@ function renderTasks(array){
 function renderSavedTasks(){
    var savedTasks =[]; 
    savedTasks.push(JSON.parse(localStorage.getItem('savedTask')));
-    if(savedTasks !== null){ 
+    if(savedTasks !== 'undefined'){ 
         schedule = savedTasks; 
         console.log(schedule); 
-        createSchedule(); 
+        createSchedule(schedule); 
     }
 }   
  
