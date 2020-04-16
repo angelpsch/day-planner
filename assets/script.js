@@ -128,11 +128,8 @@ var timeDropdown = $('#start-time');
 
     })
 
-var displaySchedule = false; 
 
-do {
-    $('#schedule-container').html('<h1 class="mx-auto text-center">Hello! Please select the hours you will be working above.</h1>')
-} while (displaySchedule = false);
+
 
 
  console.log(times); 
@@ -149,8 +146,7 @@ $('#update-schedule').click(function(event){
         hoursToWork.val('');
      } else if (selectedTime == 'Start Time') {
          alert('You must pick a start time');
-     } else {  
-        displaySchedule = true;  
+     } else {   
        $('.container').empty();
         function createObject(obj){
              schedule = []; 
@@ -189,7 +185,7 @@ function createSchedule(){
         var tasks = temp.task;
         console.log(tasks);
         console.log(taskHolder); 
-        var row = $('<div class="row p-10 m-4" id="task-rows">');
+        var row = $('<div class="row mx-auto" style="position:relative; height: auto;" id="task-rows">');
         row.attr('value', schedule[index]); 
         $('#schedule-container').append(row); 
         
@@ -197,9 +193,9 @@ function createSchedule(){
 
        
         var timeCol = $('<div class="col-1  border-left-0 border-secondary rounded-left p-2 shadow">');
-        var taskField = $('<input type="text" class="col-10 badge-secondary p-0 pl-2 mx-auto border-0 no-gutters task-field">'); 
-        var taskCol = $('<div class="col-10 badge-secondary p-0 pl-2 mx-auto border no-gutters " id="task-col">');
-        taskCol.html(taskField);
+        var taskField = $('<input type="text" class="col-10 badge-secondary p-0 pl-2 mx-auto border-0 task-field">'); 
+        var taskCol = $('<div class="col-10 badge-secondary  pl-2 pb-4 mx-auto border " id="task-col">');
+        taskCol.append(taskField);
         var btnCol = $('<div class="col-1 border-right-0 border-secondary badge-info rounded-right p-2 shadow">'); 
         var saveBtn = $('<button class="border-0 p-0 m-0 badge-secondary">');
         var svg = $('<svg class="bi bi-plus-square-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">');
@@ -225,6 +221,7 @@ function createSchedule(){
                 tasks.push(taskField.val());
                 localStorage.setItem('savedTask', JSON.stringify(schedule[index]));
                 renderTasks(tasks); 
+                taskField.val(''); 
                 })
         
         renderTasks(tasks); 
@@ -235,23 +232,30 @@ function createSchedule(){
 }
 
 function renderTasks(task){
+    
+   var li = $('<li class="text-white badge-secondary p-0 pt-1 pl-2 border-0" style:"position:relative;">');
     console.log(task);
-    $(task).each(function(index){
+    $(task).each(function(index){ 
+        
         var eachTask = task[index];    
         var deleteBtn = $('<button class="border-0 p-3 m-3 d-inline badge-danger del-btn">');
-        var li = $('<li class="text-white badge-secondary p-0 pl-2 pt-4 mx-auto border-0 no-gutters mb-4">');
+        
         deleteBtn.text('Delete Task')
         console.log(eachTask); 
         li.text(eachTask);
         li.append(deleteBtn); 
         $('#task-col').append(li);  
-            $('.del-btn').click(function(){
-                li.remove(); 
-                localStorage.removeItem('savedTask', JSON.stringify(schedule[index]));  
-        })
         
     });
-    
+     $('.del-btn').click(function(){
+                li.remove(); 
+                localStorage.removeItem('savedTask', JSON.stringify(schedule.task.indexOf(this)));  
+               
+        })
+        if (schedule == null){
+            displaySchedule = false;
+        }
+       
     }
 
 function renderSavedTasks(){
@@ -261,10 +265,17 @@ function renderSavedTasks(){
         schedule = savedTasks; 
         console.log(schedule); 
         createSchedule(schedule); 
+        displaySchedule = true;
         
     } else {
         createSchedule(schedule); 
+        displaySchedule = true;
+        
 }   
+if (schedule.length == 1 || schedule.length == null){
+    $('#schedule-container').empty(); 
+    $('#schedule-container').html('<h1 class="mx-auto text-center">Hello! Please select the hours you will be working above.</h1>')
+} 
 }
 
 renderSavedTasks(); 
