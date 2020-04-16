@@ -153,9 +153,15 @@ $('#update-schedule').click(function(event){
             for(var i = 0; i < temp; i++){ 
                 var obj = {}; 
                 obj['time'] = times[selectedTime]; 
-                obj['task'] = []; 
-                console.log(obj);
-                schedule.push(obj); 
+                obj['task'] = [];
+                
+                 if (schedule.includes(times[selectedTime]) === false){ 
+                    schedule.push(obj); 
+                    console.log(schedule); 
+                } else {
+                    continue; 
+                }
+          
                 if (selectedTime >= 23){
                     selectedTime = 0;
                     continue; 
