@@ -5,7 +5,7 @@ var day = currentDate.getDay();
 var month = currentDate.getMonth(); 
 var year = currentDate.getFullYear(); 
 
-renderSavedTasks(); 
+
 
 //Change months from number to string
 switch(month){
@@ -127,6 +127,14 @@ var timeDropdown = $('#start-time');
         timeDropdown.append(option);
 
     })
+
+var displaySchedule = false; 
+
+do {
+    $('#schedule-container').html('<h1 class="mx-auto text-center">Hello! Please select the hours you will be working above.</h1>')
+} while (displaySchedule = false);
+
+
  console.log(times); 
 $('#update-schedule').click(function(event){
     // event.preventDefault();
@@ -141,10 +149,11 @@ $('#update-schedule').click(function(event){
         hoursToWork.val('');
      } else if (selectedTime == 'Start Time') {
          alert('You must pick a start time');
-     } else {   
+     } else {  
+        displaySchedule = true;  
        $('.container').empty();
         function createObject(obj){
-             
+             schedule = []; 
             for(var i = 0; i < temp; i++){ 
                 var obj = {}; 
                 obj['time'] = times[selectedTime]; 
@@ -152,7 +161,7 @@ $('#update-schedule').click(function(event){
                 console.log(obj);
                 schedule.push(obj); 
                 if (selectedTime >= 23){
-                    times[selectedTime] = 0;
+                    selectedTime = 0;
                     continue; 
                 }
                 selectedTime++; 
@@ -170,22 +179,27 @@ $('#update-schedule').click(function(event){
 
 
 
-var taskHolder = []; 
+var taskHolder = ''; 
 //RENDER DISPLAY
 function createSchedule(){
-    taskHolder = ''; 
     
     $(schedule).each(function(index){
         var temp = schedule[index]; 
         var times = temp.time; 
         var tasks = temp.task;
+        console.log(tasks);
+        console.log(taskHolder); 
         var row = $('<div class="row p-10 m-4" id="task-rows">');
         row.attr('value', schedule[index]); 
         $('#schedule-container').append(row); 
+        
+
+
+       
         var timeCol = $('<div class="col-1  border-left-0 border-secondary rounded-left p-2 shadow">');
         var taskField = $('<input type="text" class="col-10 badge-secondary p-0 pl-2 mx-auto border-0 no-gutters task-field">'); 
-        var taskCol = $('<div class="col-10 badge-secondary p-0 pl-2 mx-auto border no-gutters" id="task-col">');
-        taskCol.append(taskField);
+        var taskCol = $('<div class="col-10 badge-secondary p-0 pl-2 mx-auto border no-gutters " id="task-col">');
+        taskCol.html(taskField);
         var btnCol = $('<div class="col-1 border-right-0 border-secondary badge-info rounded-right p-2 shadow">'); 
         var saveBtn = $('<button class="border-0 p-0 m-0 badge-secondary">');
         var svg = $('<svg class="bi bi-plus-square-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">');
@@ -194,51 +208,51 @@ function createSchedule(){
         btnCol.append(saveBtn); 
         timeCol.text(times); 
         taskField.text(tasks); 
-        
+      
+
 
         var d = new Date();
         var hour = d.getHours(); 
         console.log(hour); 
         console.log(row.val());
-        // if (row.val() == hour){
-        //     taskCol.attr('class', 'col-10 badge-danger p-0 pl-2 mx-auto border no-gutters'); 
-        //     taskField.attr('class', 'col-10 badge-danger p-0 pl-2 mx-auto border-0 no-gutters task-field'); 
-        //     return; 
-        // } 
+        
 
         row.append(timeCol)
         row.append(taskCol); 
         row.append(btnCol);
-
             $(saveBtn).click(function(event){
                 event.preventDefault(); 
-                tasks.push($('.task-field').val());
-                localStorage.setItem('savedTask', JSON.stringify(temp));
-                $('.task-field').val(''); 
-                taskHolder = tasks; 
-                renderTasks();
+                tasks.push(taskField.val());
+                localStorage.setItem('savedTask', JSON.stringify(schedule[index]));
+                renderTasks(tasks); 
                 })
+        
+        renderTasks(tasks); 
 });
 
+    
     console.log(taskHolder);
 }
 
-function renderTasks(schedule){
-    var temp = [];
-    $(schedule).each(function(index){
+function renderTasks(task){
+    console.log(task);
+    $(task).each(function(index){
+        var eachTask = task[index];    
+        var deleteBtn = $('<button class="border-0 p-3 m-3 d-inline badge-danger del-btn">');
+        var li = $('<li class="text-white badge-secondary p-0 pl-2 pt-4 mx-auto border-0 no-gutters mb-4">');
+        deleteBtn.text('Delete Task')
+        console.log(eachTask); 
+        li.text(eachTask);
+        li.append(deleteBtn); 
+        $('#task-col').append(li);  
+            $('.del-btn').click(function(){
+                li.remove(); 
+                localStorage.removeItem('savedTask', JSON.stringify(schedule[index]));  
+        })
+        
+    });
     
-        temp.push(schedule[index]);
-    }) 
-    $(temp).each(function(i){
-        var tempT = temp[i];
-        console.log(temp[i]);
-        var p = $('<p class="text-white badge-secondary p-0 pl-2 pt-4 mx-auto border-0 no-gutters">');
-        p.text(tempT);
-        $('#task-col').append(p);  
-
-    })
-
-}
+    }
 
 function renderSavedTasks(){
    var savedTasks =[]; 
@@ -247,6 +261,10 @@ function renderSavedTasks(){
         schedule = savedTasks; 
         console.log(schedule); 
         createSchedule(schedule); 
-    }
+        
+    } else {
+        createSchedule(schedule); 
 }   
- 
+}
+
+renderSavedTasks(); 
